@@ -1,0 +1,14 @@
+.content__textarea {
+  margin-top: 100px;
+  margin-right: 500px;
+  display: block;
+  width: 50%;
+  height: 100px;
+  resize: none;
+  padding: 10px;
+}
+.content__btn {
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+}

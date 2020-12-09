@@ -1,0 +1,14 @@
+.wrapper {
+  background-color: #efefef;
+  height: 500px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.massages a.active{
+  color: gold;
+}
+.dialog{
+  width: 50%;
+}

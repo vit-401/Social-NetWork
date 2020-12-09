@@ -1,0 +1,64 @@
+.content__img {
+  background-image: url("https://avatars0.githubusercontent.com/u/60542954?s=400&u=8a6e35e818005d47b1c4ecc679c6ea9bdba8a360&v=4");
+  background-position: 0 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+.content__wrap {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  width: 100%;
+  background-color: #efefef;
+  padding: 20px;
+}
+.content__textarea {
+  display: block;
+  width: 100%;
+  height: 100px;
+  resize: none;
+  padding: 10px;
+}
+.content__posts-form {
+  position: relative;
+  width: 700px;
+}
+.content__btn {
+  position: absolute;
+  bottom: -60px;
+  right: 0;
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+}
+.content__bg {
+  background-position: 0 0;
+  background-image: url("https://nicescroll.areaaperta.com/wp-content/uploads/2017/07/rubiks-cube-1321158_640-e1499777035151.jpg");
+  background-size: contain;
+  background-repeat: repeat;
+  width: 100%;
+  height: 200px;
+}
+.posts__logo {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+.content__postsAdded {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  margin-top: 50px;
+  /* background-color: #fff; */
+}
+
+.post{
+  margin-left: 20px;
+}
