@@ -25,16 +25,17 @@ const Massages = (props) => {
   //   let text = valueMassage.current.value
   //   console.log(text);
   // }
+  const { dialogPage, messages } = props;
   return (
     <>
       <div className={MassagesCss.wrapper}>
         <ul className={MassagesCss.massages}>
-          {props.dialogsData.map((item) => {
+          {dialogPage.dialogs.map((item) => {
             return <DialogItem name={item.name} id={item.id} />;
           })}
         </ul>
         <div className={MassagesCss.dialog}>
-          {props.messageData.map((item) => {
+          {messages.map((item) => {
             return (
               <Route
                 path={"/dialog/" + item.id}
