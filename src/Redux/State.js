@@ -1,3 +1,12 @@
+import profileReduser from "./profile-reduser";
+import dialogsReduser from "./dialogs-reduser";
+import sidebarReduser from "./sidebar-reduser";
+
+const add_Post = 'ADD-POST'
+const update_New_Post_Text = 'UPDATE-NEW-POST-TEXT'
+const update_New_Massage_Body = 'UPDATE-NEW-Message-TEXT'
+const send_Message = 'Send_MESSAGE'
+
 let store = {
     _state: {
         profilePage: {
@@ -17,26 +26,34 @@ let store = {
                 {id: 3, name: "Vitaliy"},
                 {id: 4, name: "Dima"},
                 {id: 5, name: "Pasha"},
+                {id: 6, name: "kate"},
             ],
+            messages: [
+                {id: 1, message: "Hello Andrew"},
+                {id: 2, message: "Hello Sasha"},
+                {id: 3, message: "Hello Vitaliy"},
+                {id: 4, message: "id-4"},
+                {id: 5, message: "id-5"},
+                {id: 6, message: "id-6"},
+            ],
+            newMessageBody: ''
         },
-        messages: [
-            {id: 1, message: "Hello Andrew"},
-            {id: 2, message: "Hello Sasha"},
-            {id: 3, message: "Hello Vitaliy"},
-            {id: 4, message: ["Hello Dima", "I am hear"]},
-            {id: 5, message: ["Hello Pasha", "I am hear too", "Beceose asdafxzc"]},
-        ],
+        sidebar: {}
     },
-    _render() {
+    _render
+        () {
         console.log("state changed");
-    },
+    }
+    ,
 
     getState() {
         return this._state;
-    },
+    }
+    ,
     subscribe(observer) {
         this._render = observer;
-    },
+    }
+    ,
 
     addPost() {
         let newPost = {
@@ -47,40 +64,23 @@ let store = {
         this._state.profilePage.posts.push(newPost);
         this._state.profilePage.newPostText = "";
         this._render(this._state);
-    },
+    }
+    ,
     updateNewPostText(newText) {
         this._state.profilePage.newPostText = "";
         this._state.profilePage.newPostText = newText;
         this._render(this._state);
-    },
+    }
+    ,
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {
-                id: 5,
-                post: this._state.profilePage.newPostText,
-                likesCount: 0,
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = "";
-            this._render(this._state);
-        } else if
-        (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = "";
-            this._state.profilePage.newPostText = action.newText;
-            this._render(this._state);
-        }
+        this._state.profilePage = profileReduser(this._state.profilePage, action);
+        this._state.dialogPage = dialogsReduser(this._state.dialogPage, action);
+        this._state.sidebar = sidebarReduser(this._state.sidebar, action);
+        this._render(this._state)
     }
 }
-export const addPostActionCreator = () => {
-    return {
-        type: 'ADD-POST'
-    }
-}
-export const updateNewPostTextActionCreator = (text) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT', newText: text
-    }
-}
+
+
 
 window.store = store;
 export default store;

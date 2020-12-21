@@ -2,33 +2,30 @@ import React from "react";
 import ProfileCss from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import Textarea from "../Textarea/Textarea";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../Redux/State";
 
 
 const Profile = (props) => {
     const newPostElement = React.createRef();
-    let postsElement = props.profilePage.posts.map((item) => (
+    let postsElement = props.posts.map((item) => (
         <MyPosts text={item.post} likes={item.likesCount}/>
     ));
 
     function addPost() {
 
-        let action = addPostActionCreator()
-        props.dispatch(action)
+        props.onAddPost()
     }
 
-    function onPostChange() {
+    function postChange() {
         let text = newPostElement.current.value;
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action)
+        props.onPostChange(text);
     }
 
     return (
         <>
             <div className={ProfileCss.content}>
-                <div className={ProfileCss.content__bg}></div>
+                <div className={ProfileCss.content__bg}/>
                 <div className={ProfileCss.content__wrap}>
-                    <div className={ProfileCss.content__img}></div>
+                    <div className={ProfileCss.content__img}/>
                     <div className={ProfileCss.content__info}>
                         <h1>Prisyagnuk Vitaliy</h1>
                         <p>date of Birsday: 19 May</p>
@@ -41,10 +38,11 @@ const Profile = (props) => {
                     <Textarea
                         placeholder={"Some text"}
                         textTextarea="Add New post"
-                        onChange={onPostChange}
+                        onChange={postChange}
                         getRef={newPostElement}
-                        value={props.profilePage.newPostText}
+                        value={props.value}
                         onClick={addPost}
+                        textBtn='Add post'
                     />
                     {postsElement}
                 </div>

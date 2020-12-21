@@ -9,9 +9,10 @@ function App(props) {
         <>
             <Header/>
             <Inner
-                profilePage={props.state.profilePage}
-                dispatch={props.dispatch}
-                state={props.state}
+                // profilePage={props.state.profilePage}
+                // dialogPage={props.state.dialogPage}
+                // dispatch={props.dispatch}
+                // state={props.state}
             />
         </>
     );
