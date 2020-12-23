@@ -20,7 +20,9 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <a href="#s">News</a>
+              <NavLink to="/users" activeClassName={active}>
+                  Users
+              </NavLink>
           </li>
           <li>
             <a href="#s">Music</a>

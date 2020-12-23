@@ -6,6 +6,7 @@ import Massages from "../Massages/Massages";
 import InnerCss from "./Inner.module.css";
 import {Route} from "react-router-dom";
 import MyMassagesContainer from "../Massages/MyMassagesContainer";
+import MyUsersContainer from "../Users/MyUsersContainer";
 
 const Inner = () => {
     return (
@@ -23,6 +24,12 @@ const Inner = () => {
                 render={() => (
                     <MyMassagesContainer
                     />
+                )}
+            />
+            <Route
+                path="/users"
+                render={() => (
+                    <MyUsersContainer/>
                 )}
             />
         </div>

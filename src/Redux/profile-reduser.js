@@ -23,15 +23,15 @@ const profileReduser = (state = initislState, action) => {
             let stateCopy = {...state}
             stateCopy.posts = [...state.posts]
             stateCopy.posts.push(newPost);
-            state.newPostText = "";
+            stateCopy.newPostText = "";
             return stateCopy
         }
 
         case update_New_Post_Text: {
             let stateCopy = {...state}
-            stateCopy.newPostText = "";
+            stateCopy.posts = [...state.posts]
             stateCopy.newPostText = action.newText;
-            return state
+            return stateCopy
         }
         default:
             return state

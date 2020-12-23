@@ -1,12 +1,18 @@
 .nav li {
-  margin-bottom: 20px;
-  font-size: 30px;
+    margin-bottom: 20px;
+    font-size: 30px;
 }
+
 .nav {
-  width: 300px;
-  background-color: #ededed;
-  margin-right: 20px;
+    width: 300px;
+    background-color: #ededed;
+    margin-right: 20px;
 }
-.nav a.active{
-  color: #6a9797;
+
+.nav a.active {
+    color: #6a9797;
+}
+
+li {
+    cursor: pointer;
 }

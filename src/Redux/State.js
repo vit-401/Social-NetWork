@@ -2,10 +2,10 @@ import profileReduser from "./profile-reduser";
 import dialogsReduser from "./dialogs-reduser";
 import sidebarReduser from "./sidebar-reduser";
 
-const add_Post = 'ADD-POST'
-const update_New_Post_Text = 'UPDATE-NEW-POST-TEXT'
-const update_New_Massage_Body = 'UPDATE-NEW-Message-TEXT'
-const send_Message = 'Send_MESSAGE'
+// const add_Post = 'ADD-POST'
+// const update_New_Post_Text = 'UPDATE-NEW-POST-TEXT'
+// const update_New_Massage_Body = 'UPDATE-NEW-Message-TEXT'
+// const send_Message = 'Send_MESSAGE'
 
 let store = {
     _state: {

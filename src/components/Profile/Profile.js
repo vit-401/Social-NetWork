@@ -7,7 +7,7 @@ import Textarea from "../Textarea/Textarea";
 const Profile = (props) => {
     const newPostElement = React.createRef();
     let postsElement = props.posts.map((item) => (
-        <MyPosts text={item.post} likes={item.likesCount}/>
+        <MyPosts text={item.post} key ={item.id} likes={item.likesCount}/>
     ));
 
     function addPost() {
