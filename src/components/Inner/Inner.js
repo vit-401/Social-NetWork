@@ -14,7 +14,7 @@ const Inner = () => {
         <div className={InnerCss.inner}>
             <Navbar/>
             <Route
-                path="/profile"
+                path="/profile/:userId?"
                 render={() => (
                     <ProfileContainer2
                     />

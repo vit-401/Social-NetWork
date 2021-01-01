@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import * as axios from "axios";
 import MyPosts from "./MyPosts/MyPosts";
 import Textarea from "../Textarea/Textarea";
+import withRouter from "react-router-dom/es/withRouter";
 //
 // const ProfileContainer = () => {
 //
@@ -46,9 +47,13 @@ const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
 class ProfileContainer2 extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 2
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
-                // debugger
+                debugger
                 this.props.setUserProfile(response.data)
             })
     }
@@ -63,6 +68,8 @@ class ProfileContainer2 extends React.Component {
 let dapStateToProps = (state) => ({
     profile: state.profilePage.profile
 })
-export default connect(dapStateToProps, {setUserProfile})(ProfileContainer2)
+
+let withUrlDataContainerComponent = withRouter(ProfileContainer2)
+export default connect(dapStateToProps, {setUserProfile})(withUrlDataContainerComponent)
 
 // export default ProfileContainer;
