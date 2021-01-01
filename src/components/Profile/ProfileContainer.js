@@ -1,8 +1,10 @@
 import React from "react";
 import Profile from "./Profile";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../Redux/profile-reduser";
+import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "../../Redux/profile-reduser";
 import {connect} from "react-redux";
-
+import * as axios from "axios";
+import MyPosts from "./MyPosts/MyPosts";
+import Textarea from "../Textarea/Textarea";
 //
 // const ProfileContainer = () => {
 //
@@ -41,5 +43,26 @@ let mapDispatchToProps = (dispatch) => {
 
 const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
 
+class ProfileContainer2 extends React.Component {
 
-export default ProfileContainer;
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+            .then(response => {
+                // debugger
+                this.props.setUserProfile(response.data)
+            })
+    }
+
+    render() {
+        return (
+            <ProfileContainer {...this.props} profile={this.props.profile}/>
+        )
+    }
+}
+
+let dapStateToProps = (state) => ({
+    profile: state.profilePage.profile
+})
+export default connect(dapStateToProps, {setUserProfile})(ProfileContainer2)
+
+// export default ProfileContainer;

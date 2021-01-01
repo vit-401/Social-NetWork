@@ -1,12 +1,13 @@
 import React from "react";
 
 import Navbar from "../Navbar/Navbar";
-import ProfileContainer from "../Profile/ProfileContainer";
+// import ProfileContainer2 from "../Profile/ProfileContainer";
 import Massages from "../Massages/Massages";
 import InnerCss from "./Inner.module.css";
 import {Route} from "react-router-dom";
 import MyMassagesContainer from "../Massages/MyMassagesContainer";
 import MyUsersContainer from "../Users/MyUsersContainer";
+import ProfileContainer2 from "../Profile/ProfileContainer";
 
 const Inner = () => {
     return (
@@ -15,7 +16,7 @@ const Inner = () => {
             <Route
                 path="/profile"
                 render={() => (
-                    <ProfileContainer
+                    <ProfileContainer2
                     />
                 )}
             />

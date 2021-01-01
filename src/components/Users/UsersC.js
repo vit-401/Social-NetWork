@@ -1,53 +1,45 @@
 import React from 'react'
-import s from './Users.module.css'
-import * as axios from "axios";
+import s from "./Users.module.css";
+import Preloader from "../common/Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
-class User extends React.Component {
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                debugger
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
+let Users = (props) => {
+    let pagesSize = Math.ceil(props.totalUsersCount / props.pageSize)
+
+    let pages = []
+    for (let i = 1; i < pagesSize; i++) {
+        pages.push(i)
     }
 
-    onPageChenged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-            })
-    }
+    return <>
 
-    render() {
-        let pagesSize = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-
-        let pages = []
-        for (let i = 1; i < pagesSize; i++) {
-            pages.push(i)
-        }
-        return <div className={s.content}>
+        <div className={s.content}>
+            {/*{props.isFetching ? <Preloader/> : null}*/}
             <div className={s.pagination}>
                 {
                     pages.map((p) => {
-                        return <span className={this.props.currentPage === p && s.numActive} onClick={() => {
-                            this.onPageChenged(p)
+                        return <span className={props.currentPage === p && s.numActive} onClick={() => {
+                            props.onPageChenged(p)
                         }}>{p}</span>
                     })
                 }
             </div>
             {
-                this.props.users.map((u) => <div className={s.user__inner} key={u.id}>
+                props.users.map((u) => <div className={s.user__inner} key={u.id}>
                         <div className={s.user__item}>
-                            <img
-                                src={u.photos.small || 'https://serc.carleton.edu/download/images/54334/empty_user_icon_256.v2.png'}
-                                className={s.user__photo}/>
+                            <NavLink to={'/profile/' + u.id}>
+                                {
+                                    props.isFetching ?
+                                        <Preloader/> : <img
+                                            src={u.photos.small || 'https://serc.carleton.edu/download/images/54334/empty_user_icon_256.v2.png'}
+                                            className={s.user__photo}/>
+                                }
+                            </NavLink>
                             <div>
                                 {u.followed ? <button className={s.user__btn_active} onClick={() => {
-                                    this.props.unFollow(u.id)
+                                    props.unFollow(u.id)
                                 }}>Unfollow</button> : <button className={s.user__btn} onClick={() => {
-                                    this.props.Follow(u.id)
+                                    props.follow(u.id)
                                 }}>Follow</button>}
                             </div>
                         </div>
@@ -67,7 +59,6 @@ class User extends React.Component {
                 )
             }
         </div>
-    }
+    </>
 }
-
-export default User
+export default Users

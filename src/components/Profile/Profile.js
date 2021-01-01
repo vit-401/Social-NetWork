@@ -2,12 +2,13 @@ import React from "react";
 import ProfileCss from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import Textarea from "../Textarea/Textarea";
+import Preloader from "../common/Preloader/Preloader";
 
 
 const Profile = (props) => {
     const newPostElement = React.createRef();
     let postsElement = props.posts.map((item) => (
-        <MyPosts text={item.post} key ={item.id} likes={item.likesCount}/>
+        <MyPosts text={item.post} key={item.id} likes={item.likesCount}/>
     ));
 
     function addPost() {
@@ -20,12 +21,15 @@ const Profile = (props) => {
         props.onPostChange(text);
     }
 
+    if (!props.profile) {
+        return <Preloader/>
+    }
     return (
         <>
             <div className={ProfileCss.content}>
                 <div className={ProfileCss.content__bg}/>
                 <div className={ProfileCss.content__wrap}>
-                    <div className={ProfileCss.content__img}/>
+                    <img src={props.profile.photos.large} className={ProfileCss.content__img}/>
                     <div className={ProfileCss.content__info}>
                         <h1>Prisyagnuk Vitaliy</h1>
                         <p>date of Birsday: 19 May</p>
