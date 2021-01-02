@@ -2,27 +2,9 @@ import React from "react";
 import Profile from "./Profile";
 import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "../../Redux/profile-reduser";
 import {connect} from "react-redux";
-import * as axios from "axios";
-import MyPosts from "./MyPosts/MyPosts";
-import Textarea from "../Textarea/Textarea";
-import withRouter from "react-router-dom/es/withRouter";
-//
-// const ProfileContainer = () => {
-//
-//     function onAddPost() {
-//         props.dispatch(addPostActionCreator())
-//     }
-//
-//     function onPostChange(text) {
-//         let action = updateNewPostTextActionCreator(text);
-//         props.dispatch(action)
-//     }
-//
-//     return (
-//         <Profile addPost={onAddPost} postChange={onPostChange} posts={props.profilePage.posts}
-//                  value={props.profilePage.newPostText}/>
-//     )
-// };
+import {withRouter} from "react-router-dom";
+import {userAPI} from "../../api/api";
+
 
 let mapStateToProps = (state) => {
     return {
@@ -51,11 +33,12 @@ class ProfileContainer2 extends React.Component {
         if (!userId) {
             userId = 2
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
+        userAPI.getUserProfile(userId)
+            .then(data => {
+                this.props.setUserProfile(data)
             })
     }
+
     render() {
         return (
             <ProfileContainer {...this.props} profile={this.props.profile}/>

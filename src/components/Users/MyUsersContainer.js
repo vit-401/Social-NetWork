@@ -19,28 +19,7 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching
     }
 }
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId))
-//         },
-//         unFollow: (userId) => {
-//             dispatch(unFollowAC(userId))
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageAC(pageNumber))
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         toogleFetching: (isFetching) => {
-//             dispatch(toogleFetchingAC(isFetching))
-//         }
-//     }
-// }
+
 const MyUsersContainer = connect(mapStateToProps,
     {
         follow,
@@ -50,7 +29,6 @@ const MyUsersContainer = connect(mapStateToProps,
         toogleFetching,
         unFollow
     }
-    // mapDispatchToProps
 )
 (UsersAPIComponent)
 export default MyUsersContainer

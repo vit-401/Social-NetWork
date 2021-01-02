@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
+import {userAPI} from "../../api/api";
 
 let Users = (props) => {
     let pagesSize = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -18,8 +19,12 @@ let Users = (props) => {
             {/*{props.isFetching ? <Preloader/> : null}*/}
             <div className={s.pagination}>
                 {
-                    pages.map((p) => {
-                        return <span className={props.currentPage === p && s.numActive} onClick={() => {
+                    pages.map((p, i) => {
+                        let activeClass
+                        if (props.currentPage === p) {
+                            activeClass = s.numActive
+                        }
+                        return <span className={activeClass} key={'asdf' + i} onClick={() => {
                             props.onPageChenged(p)
                         }}>{p}</span>
                     })
@@ -27,7 +32,7 @@ let Users = (props) => {
             </div>
             {
                 props.users.map((u) => <div className={s.user__inner} key={u.id}>
-                        <div className={s.user__item}>
+                        <div>
                             <NavLink to={'/profile/' + u.id}>
                                 {
                                     props.isFetching ?
@@ -39,27 +44,17 @@ let Users = (props) => {
                             <div>
                                 {u.followed
                                     ? <button className={s.user__btn_active} onClick={() => {
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "abc06cb1-a194-487d-92d4-5e6b812ada60"
-                                            }
-                                        })
-                                            .then(response => {
-                                                if (response.data.resultCode === 0) {
+                                        userAPI.toogleFollow(u.id)
+                                            .then(data => {
+                                                if (data.resultCode === 0) {
                                                     props.unFollow(u.id)
                                                 }
                                             })
                                     }}>Unfollow</button>
                                     : <button className={s.user__btn} onClick={() => {
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "abc06cb1-a194-487d-92d4-5e6b812ada60"
-                                            }
-                                        })
-                                            .then(response => {
-                                                if (response.data.resultCode === 0) {
+                                        userAPI.toogleFollow(u.id)
+                                            .then(data => {
+                                                if (data.resultCode === 0) {
                                                     props.follow(u.id)
                                                 }
                                             })
