@@ -53,11 +53,9 @@ class ProfileContainer2 extends React.Component {
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
-                debugger
                 this.props.setUserProfile(response.data)
             })
     }
-
     render() {
         return (
             <ProfileContainer {...this.props} profile={this.props.profile}/>
@@ -72,4 +70,3 @@ let dapStateToProps = (state) => ({
 let withUrlDataContainerComponent = withRouter(ProfileContainer2)
 export default connect(dapStateToProps, {setUserProfile})(withUrlDataContainerComponent)
 
-// export default ProfileContainer;
