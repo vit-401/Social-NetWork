@@ -19,7 +19,6 @@ const DialogItem = (props) => {
 };
 
 const Massages = (props) => {
-    debugger
     let messageContent = props.messages.map((item) => {
         return (
             <Route

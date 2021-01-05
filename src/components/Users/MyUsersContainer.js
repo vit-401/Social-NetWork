@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, fullowThunkCreator, getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toogleFetching,
-    unFollow
+    unFollow, unFullowThunkCreator
 } from "../../Redux/users-reduser";
 import UsersAPIComponent from "./UsersAPIComponent";
 
@@ -22,12 +22,13 @@ let mapStateToProps = (state) => {
 
 const MyUsersContainer = connect(mapStateToProps,
     {
-        follow,
         setCurrentPage,
         setTotalUsersCount,
         setUsers,
         toogleFetching,
-        unFollow
+        getUsers: getUsersThunkCreator,
+        follow: fullowThunkCreator,
+        unFollow: unFullowThunkCreator
     }
 )
 (UsersAPIComponent)

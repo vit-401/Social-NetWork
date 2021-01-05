@@ -1,3 +1,5 @@
+import {userAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UN_FOLLOW = 'UN_FOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -68,4 +70,32 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USER_COUNT, count: totalUsersCount})
 export const toogleFetching = (isFetching) => ({type: TOOGLE_FETCH, isFetching})
+
+export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+    dispatch(toogleFetching(true))
+    userAPI.getUsers(currentPage, pageSize).then(data => {
+    // debugger
+        dispatch(setUsers(data.items))
+        dispatch(toogleFetching(false))
+        dispatch(setTotalUsersCount(data.totalCount))
+    })
+}
+export const fullowThunkCreator = (UserID) => (dispatch) => {
+    userAPI.follow(UserID)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(UserID))
+            }
+        })
+}
+export const unFullowThunkCreator = (UserID) => (dispatch) => {
+    userAPI.unFollow(UserID)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollow(UserID))
+            }
+        })
+}
+
+
 export default usersReduser

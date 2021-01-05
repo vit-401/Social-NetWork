@@ -1,24 +1,13 @@
 import React from 'react'
 import Users from "./UsersC";
-import {userAPI} from "../../api/api";
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
-        this.props.toogleFetching(true)
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setUsers(data.items)
-            this.props.toogleFetching(false)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChenged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.toogleFetching(true)
-        userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toogleFetching(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {

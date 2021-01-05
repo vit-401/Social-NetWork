@@ -2,7 +2,6 @@ import React from 'react'
 import s from "./Users.module.css";
 import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
 import {userAPI} from "../../api/api";
 
 let Users = (props) => {
@@ -44,20 +43,11 @@ let Users = (props) => {
                             <div>
                                 {u.followed
                                     ? <button className={s.user__btn_active} onClick={() => {
-                                        userAPI.toogleFollow(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.unFollow(u.id)
-                                                }
-                                            })
+                                        props.unFollow(u.id)
                                     }}>Unfollow</button>
                                     : <button className={s.user__btn} onClick={() => {
-                                        userAPI.toogleFollow(u.id)
-                                            .then(data => {
-                                                if (data.resultCode === 0) {
-                                                    props.follow(u.id)
-                                                }
-                                            })
+                                        debugger
+                                        props.follow(u.id)
                                     }}>Follow</button>}
                             </div>
                         </div>
