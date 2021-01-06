@@ -3,6 +3,7 @@ import ProfileCss from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
 import Textarea from "../Textarea/Textarea";
 import Preloader from "../common/Preloader/Preloader";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 const Profile = (props) => {
@@ -24,6 +25,7 @@ const Profile = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }
+    if (props.isAuth == false) return <Redirect to={"/login"}/>
     return (
         <>
             <div className={ProfileCss.content}>

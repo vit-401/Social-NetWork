@@ -7,6 +7,7 @@ import {Route} from "react-router-dom";
 import MyMassagesContainer from "../Massages/MyMassagesContainer";
 import MyUsersContainer from "../Users/MyUsersContainer";
 import HeaderContainer from "../Header/HeaderContainer";
+import Login from "../Login/Login";
 
 const Inner = () => {
     return (
@@ -14,7 +15,9 @@ const Inner = () => {
             <Navbar/>
             <Route
                 path="/login"
-
+                render={() => (
+                    <Login/>
+                )}
             />
             <Route
                 path="/profile/:userId?"

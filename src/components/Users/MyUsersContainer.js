@@ -9,6 +9,8 @@ import {
     unFollow, unFullowThunkCreator
 } from "../../Redux/users-reduser";
 import UsersAPIComponent from "./UsersAPIComponent";
+import {withAuthRedirect} from "../HOC/withAuthRedirect";
+import Massages from "../Massages/Massages";
 
 let mapStateToProps = (state) => {
     return {
@@ -16,9 +18,16 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
     }
 }
+let mapStateToPropsForRedirect = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+let AuthRedirectComponent =  withAuthRedirect(UsersAPIComponent)
+AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
 
 const MyUsersContainer = connect(mapStateToProps,
     {
@@ -31,5 +40,5 @@ const MyUsersContainer = connect(mapStateToProps,
         unFollow: unFullowThunkCreator
     }
 )
-(UsersAPIComponent)
+(AuthRedirectComponent)
 export default MyUsersContainer

@@ -4,12 +4,13 @@ import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} fr
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {userAPI} from "../../api/api";
+import {withAuthRedirect} from "../HOC/withAuthRedirect";
 
 
 let mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
-        value: state.profilePage.newPostText
+        value: state.profilePage.newPostText,
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -23,8 +24,15 @@ let mapDispatchToProps = (dispatch) => {
         }
     }
 }
+function mapStateToPropsForRedirect(state) {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+let AuthRedirectComponent =  withAuthRedirect(Profile)
+AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 class ProfileContainer2 extends React.Component {
 
@@ -49,6 +57,7 @@ class ProfileContainer2 extends React.Component {
 let dapStateToProps = (state) => ({
     profile: state.profilePage.profile
 })
+
 
 let withUrlDataContainerComponent = withRouter(ProfileContainer2)
 export default connect(dapStateToProps, {setUserProfile})(withUrlDataContainerComponent)

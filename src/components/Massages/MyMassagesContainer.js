@@ -5,6 +5,7 @@ import {
 } from "../../Redux/dialogs-reduser";
 import {connect} from "react-redux";
 import Massages from "./Massages";
+import {withAuthRedirect} from "../HOC/withAuthRedirect";
 
 
 function mapStateToProps(state) {
@@ -15,6 +16,12 @@ function mapStateToProps(state) {
 
     }
 }
+function mapStateToPropsForRedirect(state) {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -28,6 +35,9 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const MyMassagesContainer = connect(mapStateToProps, mapDispatchToProps)(Massages)
+let AuthRedirectComponent =  withAuthRedirect(Massages)
+AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
+
+const MyMassagesContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 export default MyMassagesContainer;
