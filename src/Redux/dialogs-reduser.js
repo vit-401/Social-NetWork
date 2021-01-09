@@ -35,22 +35,14 @@ const initislState = {
         {id: 5, message: "id-5"},
         {id: 6, message: "id-6"},
     ],
-    newMessageBody: ''
 }
 
 const dialogsReduser = (state = initislState, action) => {
     switch (action.type) {
-        case update_New_Massage_Body: {
-            let stateCopy = {...state}
-            stateCopy.messages = [...state.messages]
-            stateCopy.newMessageBody = action.body;
-            return stateCopy;
-        }
         case send_Message: {
             let stateCopy = {...state}
             stateCopy.messages = [...state.messages]
-            let body = stateCopy.newMessageBody
-            stateCopy.newMessageBody = ''
+            let body = action.sendMassage
             stateCopy.messages.push({
                 id: 6, message: body
             })
@@ -60,6 +52,6 @@ const dialogsReduser = (state = initislState, action) => {
             return state
     }
 }
-export const sendMessageCreator = () => ({type: send_Message})
+export const sendMessageCreator = (sendMassage) => ({type: send_Message, sendMassage})
 export const updateNewMessageBodyCreator = (body) => ({type: update_New_Massage_Body, body: body})
 export default dialogsReduser

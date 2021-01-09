@@ -25,7 +25,6 @@ export const setUserData = (login, userId, email) => ({type: SET_USER, data: {lo
 export const setUserThunkCreator = () => (dispatch) => {
     userAPI.setUser()
         .then(data => {
-            debugger
             if (data.resultCode === 0) {
                 let {login, id, email} = data.data
                 dispatch(setUserData(login, id, email))

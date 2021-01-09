@@ -1,16 +1,16 @@
 import React from 'react'
 import {connect} from "react-redux";
 import {
-    follow, fullowThunkCreator, getUsersThunkCreator,
+    fullowThunkCreator, getUsersThunkCreator,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toogleFetching,
-    unFollow, unFullowThunkCreator
+    unFullowThunkCreator
 } from "../../Redux/users-reduser";
 import UsersAPIComponent from "./UsersAPIComponent";
 import {withAuthRedirect} from "../HOC/withAuthRedirect";
-import Massages from "../Massages/Massages";
+import {compose} from "redux";
 
 let mapStateToProps = (state) => {
     return {
@@ -21,15 +21,10 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
     }
 }
-let mapStateToPropsForRedirect = (state) => {
-    return {
-        isAuth: state.auth.isAuth
-    }
-}
-let AuthRedirectComponent =  withAuthRedirect(UsersAPIComponent)
-AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
 
-const MyUsersContainer = connect(mapStateToProps,
+let AuthRedirectComponent = withAuthRedirect(UsersAPIComponent)
+
+export default compose(withAuthRedirect,connect(mapStateToProps,
     {
         setCurrentPage,
         setTotalUsersCount,
@@ -39,6 +34,18 @@ const MyUsersContainer = connect(mapStateToProps,
         follow: fullowThunkCreator,
         unFollow: unFullowThunkCreator
     }
-)
-(AuthRedirectComponent)
-export default MyUsersContainer
+))(AuthRedirectComponent)
+
+// const MyUsersContainer = connect(mapStateToProps,
+//     {
+//         setCurrentPage,
+//         setTotalUsersCount,
+//         setUsers,
+//         toogleFetching,
+//         getUsers: getUsersThunkCreator,
+//         follow: fullowThunkCreator,
+//         unFollow: unFullowThunkCreator
+//     }
+// )
+// (AuthRedirectComponent)
+// export default MyUsersContainer

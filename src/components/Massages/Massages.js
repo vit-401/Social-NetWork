@@ -2,8 +2,10 @@ import React from "react";
 import MassagesCss from "./Massages.module.css";
 import Dialogs from "../Dialogs/Dialogs";
 import {NavLink, Route} from "react-router-dom";
-import Textarea from "../Textarea/Textarea";
-import Redirect from "react-router-dom/es/Redirect";
+import {Redirect} from "react-router-dom";
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../validate/validate";
+import {Textarea} from "../common/FormsControls/FormsControls";
 
 const DialogItem = (props) => {
     const {name, id} = props;
@@ -18,6 +20,18 @@ const DialogItem = (props) => {
         </>
     );
 };
+const maxLength50 = maxLengthCreator(50)
+const MassageForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <Field component={Textarea} validate={[required,maxLength50]} name={"newMassage"} />
+            <button type={'submit'}>Отправить</button>
+        </form>
+    )
+}
+
+const MassageReduxForm = reduxForm({form: 'massage'})(MassageForm)
+
 
 const Massages = (props) => {
 
@@ -29,23 +43,12 @@ const Massages = (props) => {
             />
         );
     })
-    // debugger
-    const valueMassage = React.createRef();
 
-
-
-
-        function sendMassage() {
-            props.sendMassage()
+        function sendMassage(value) {
+            props.sendMassage(value.newMassage)
         }
 
-    function onMessageChange() {
-        let text = valueMassage.current.value;
-        props.onMessageChange(text)
-    }
     if (props.isAuth == false) return <Redirect to={"/login"}/>
-
-
 
 
     return (
@@ -57,14 +60,7 @@ const Massages = (props) => {
             </ul>
             <div className={MassagesCss.dialog}>
                 {messageContent}
-                <Textarea
-                    getRef={valueMassage}
-                    onChange={onMessageChange}
-                    value={props.newMessageBody}
-                    placeholder='type new text'
-                    textBtn='send'
-                    onClick={sendMassage}
-                />
+                <MassageReduxForm onSubmit={sendMassage}/>
             </div>
         </div>
     )

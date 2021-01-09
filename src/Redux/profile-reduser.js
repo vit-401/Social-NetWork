@@ -1,5 +1,4 @@
 const add_Post = 'ADD-POST'
-const update_New_Post_Text = 'UPDATE-NEW-POST-TEXT'
 const set_User_Profile = 'SET-USER-PROFILE'
 
 const initislState = {
@@ -10,7 +9,6 @@ const initislState = {
         {id: 4, post: "Hello Dima nise to met you", likesCount: 2},
         {id: 5, post: "Its new POST", likesCount: 500},
     ],
-    newPostText: "",
     profile: null,
 }
 
@@ -19,22 +17,16 @@ const profileReduser = (state = initislState, action) => {
         case add_Post: {
             let newPost = {
                 id: 5,
-                post: state.newPostText,
+                post: action.value.newPost,
                 likesCount: 0,
             };
+            debugger
             let stateCopy = {...state}
             stateCopy.posts = [...state.posts]
             stateCopy.posts.push(newPost);
-            stateCopy.newPostText = "";
             return stateCopy
         }
 
-        case update_New_Post_Text: {
-            let stateCopy = {...state}
-            stateCopy.posts = [...state.posts]
-            stateCopy.newPostText = action.newText;
-            return stateCopy
-        }
         case set_User_Profile: {
             return {...state, profile: action.profile}
         }
@@ -42,7 +34,6 @@ const profileReduser = (state = initislState, action) => {
             return state
     }
 }
-export const addPostActionCreator = () => ({type: add_Post})
-export const updateNewPostTextActionCreator = (text) => ({type: update_New_Post_Text, newText: text})
+export const addPostActionCreator = (value) => ({type: add_Post, value})
 export const setUserProfile = (profile) => ({type: set_User_Profile, profile})
 export default profileReduser

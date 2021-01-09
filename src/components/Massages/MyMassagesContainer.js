@@ -6,6 +6,7 @@ import {
 import {connect} from "react-redux";
 import Massages from "./Massages";
 import {withAuthRedirect} from "../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 
 function mapStateToProps(state) {
@@ -16,28 +17,21 @@ function mapStateToProps(state) {
 
     }
 }
-function mapStateToPropsForRedirect(state) {
-    return {
-        isAuth: state.auth.isAuth
-    }
-}
 
 
 function mapDispatchToProps(dispatch) {
     return {
-        sendMassage() {
-            let action = sendMessageCreator()
+        sendMassage(newMassage) {
+            let action = sendMessageCreator(newMassage)
             dispatch(action)
         },
-        onMessageChange(text) {
-            dispatch(updateNewMessageBodyCreator(text))
-        }
     }
 }
 
-let AuthRedirectComponent =  withAuthRedirect(Massages)
-AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
+export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Massages)
+// let AuthRedirectComponent =  withAuthRedirect(Massages)
+//
+// const MyMassagesContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
-const MyMassagesContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
-export default MyMassagesContainer;
+// export default MyMassagesContainer;

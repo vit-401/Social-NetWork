@@ -1,27 +1,33 @@
 import React from "react";
 import ProfileCss from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
-import Textarea from "../Textarea/Textarea";
 import Preloader from "../common/Preloader/Preloader";
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom";
+import ProfileCity from "./ProfileCity";
+import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../validate/validate";
+const maxLength50 = maxLengthCreator(50)
+const ProfileForm = (props) => {
+    return(
+        <form onSubmit={props.handleSubmit}>
+            <Field component={Textarea} validate={[required,maxLength50]} name={"newPost"} />
+            <button>Отправить</button>
+        </form>
+    )
+}
 
+const ProfileReduxForm = reduxForm({form: 'profile'})(ProfileForm)
 
 const Profile = (props) => {
-    const newPostElement = React.createRef();
     let postsElement = props.posts.map((item) => (
         <MyPosts text={item.post} key={item.id} likes={item.likesCount}/>
     ));
 
-    function addPost() {
+    function addPost(value) {
 
-        props.onAddPost()
+        props.onAddPost(value)
     }
-
-    function postChange() {
-        let text = newPostElement.current.value;
-        props.onPostChange(text);
-    }
-
     if (!props.profile) {
         return <Preloader/>
     }
@@ -35,21 +41,24 @@ const Profile = (props) => {
                     <div className={ProfileCss.content__info}>
                         <h1>Prisyagnuk Vitaliy</h1>
                         <p>date of Birsday: 19 May</p>
-                        <p>City: Kiyev</p>
+                        <p>
+                            < ProfileCity/>
+                        </p>
                         <p>WebSite: facebook.com</p>
                     </div>
                 </div>
                 <div className={ProfileCss.content__posts}>
                     <div className={ProfileCss.content__postsTitle}>My posts</div>
-                    <Textarea
-                        placeholder={"Some text"}
-                        textTextarea="Add New post"
-                        onChange={postChange}
-                        getRef={newPostElement}
-                        value={props.value}
-                        onClick={addPost}
-                        textBtn='Add post'
-                    />
+                    {/*<Textarea*/}
+                    {/*    placeholder={"Some text"}*/}
+                    {/*    textTextarea="Add New post"*/}
+                    {/*    onChange={postChange}*/}
+                    {/*    getRef={newPostElement}*/}
+                    {/*    value={props.value}*/}
+                    {/*    onClick={addPost}*/}
+                    {/*    textBtn='Add post'*/}
+                    {/*/>*/}
+                    <ProfileReduxForm onSubmit={addPost}/>
                     {postsElement}
                 </div>
             </div>

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {userAPI} from "../../api/api";
 import {withAuthRedirect} from "../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -15,31 +16,19 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        onAddPost: () => {
-            dispatch(addPostActionCreator())
-        },
-        onPostChange: (text) => {
-            let action = updateNewPostTextActionCreator(text);
+        onAddPost: (value) => {
+            let action =  addPostActionCreator(value)
             dispatch(action)
         }
     }
 }
-function mapStateToPropsForRedirect(state) {
-    return {
-        isAuth: state.auth.isAuth
-    }
-}
-let AuthRedirectComponent =  withAuthRedirect(Profile)
-AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
-
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+const ProfileContainer = compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Profile)
 
 class ProfileContainer2 extends React.Component {
-
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = 2
+            userId = 13702
         }
         userAPI.getUserProfile(userId)
             .then(data => {
